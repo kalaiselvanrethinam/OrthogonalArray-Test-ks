@@ -1,0 +1,7 @@
+{
+  "loginDetails": {
+    "browser": "{{browser}}",
+    "os": "{{os}}",
+    "region": "{{region}}"
+  }
+}
