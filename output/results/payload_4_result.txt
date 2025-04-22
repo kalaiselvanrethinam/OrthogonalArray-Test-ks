@@ -1,0 +1,5 @@
+Status: 400
+Response:
+[
+    "Account status is required"
+]
