@@ -43,7 +43,7 @@ public class AccountController {
         return accountService.withdraw(accountNumber, amount);
     }
 
-    @DeleteMapping("deleteAccount")
+    @DeleteMapping("/deleteAccount")
     public ResponseEntity<String> deleteAccount(@RequestParam(required = false) String accountNumber){
         try {
             accountService.deleteAccount(accountNumber);
