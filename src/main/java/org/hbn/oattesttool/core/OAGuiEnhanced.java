@@ -41,7 +41,7 @@ public class OAGuiEnhanced {
 
     private void initialize() {
         frame = new JFrame("Orthogonal Array Test Generator");
-        frame.setBounds(100, 100, 800, 600);
+        frame.setBounds(100, 100, 600, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(new BorderLayout());
 
@@ -98,7 +98,7 @@ public class OAGuiEnhanced {
         previewArea.setLineWrap(true);
         previewArea.setWrapStyleWord(true);
         JScrollPane previewScroll = new JScrollPane(previewArea);
-        previewScroll.setPreferredSize(new Dimension(600, 200));
+        previewScroll.setPreferredSize(new Dimension(200, 200));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(generateButton);
