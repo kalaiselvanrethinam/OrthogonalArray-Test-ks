@@ -1,4 +1,5 @@
 {
-  "id" : "1",
-  "name" : "kavi"
+  "accountType" : "Savings",
+  "balance" : "500",
+  "status" : "Active"
 }

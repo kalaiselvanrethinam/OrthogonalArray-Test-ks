@@ -1,0 +1,65 @@
+{
+	"id": "e7af4948-8316-4b4d-8022-4c91f4bcdd6c",
+	"name": "REST API basics: CRUD, test & variable",
+	"timestamp": "2025-04-22T05:53:14.679Z",
+	"collection_id": "38559357-1f721a91-7cea-473c-a003-9f172437078d",
+	"folder_id": 0,
+	"environment_id": "0",
+	"totalPass": 1,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2025-04-22T05:53:13.888Z",
+	"totalFail": 3,
+	"results": [
+		{
+			"id": "b14dadad-29ef-478d-bdfa-b3723b6c0b62",
+			"name": "Post data",
+			"url": "http://localhost:8052/api/createAccount",
+			"time": 18,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Successful POST request": false
+			},
+			"testPassFailCounts": {
+				"Successful POST request": {
+					"pass": 1,
+					"fail": 3
+				}
+			},
+			"times": [
+				10,
+				34,
+				6,
+				18
+			],
+			"allTests": [
+				{
+					"Successful POST request": false
+				},
+				{
+					"Successful POST request": true
+				},
+				{
+					"Successful POST request": false
+				},
+				{
+					"Successful POST request": false
+				}
+			]
+		}
+	],
+	"count": 4,
+	"totalTime": 68,
+	"collection": {
+		"requests": [
+			{
+				"id": "b14dadad-29ef-478d-bdfa-b3723b6c0b62",
+				"method": "POST"
+			}
+		]
+	}
+}
