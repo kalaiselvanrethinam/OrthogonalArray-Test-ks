@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import org.json.JSONException;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.*;
@@ -24,22 +25,23 @@ public class OABatchRunner {
                 default -> throw new IllegalArgumentException("Unsupported OA Type: " + oaType);
             };
 
-            List<List<String>> oaData = TaguchiOA.generateOA(numFactors, rows);
+            // Generate the OA matrix
+            List<List<String>> oaData = TaguchiOA.generateOA(numFactors, String.valueOf(rows));
 
-            // Map OA index values to actual level values
-            List<List<String>> resolvedData = new ArrayList<>();
+            // Convert OA data to resolved combinations (List<Map<String, String>>)
+            List<Map<String, String>> resolvedData = new ArrayList<>();
             for (List<String> row : oaData) {
-                List<String> resolvedRow = new ArrayList<>();
+                Map<String, String> rowMap = new LinkedHashMap<>();
                 for (int i = 0; i < row.size(); i++) {
                     List<String> levels = factorLevels.get(headers.get(i));
                     int index = Integer.parseInt(row.get(i)) % levels.size();
-                    resolvedRow.add(levels.get(index));
+                    rowMap.put(headers.get(i), levels.get(index));
                 }
-                resolvedData.add(resolvedRow);
+                resolvedData.add(rowMap);
             }
 
             // Generate JSON payloads
-            List<String> jsonPayloads = JsonPayloadGenerator.generatePayloads(resolvedData, headers);
+            List<String> jsonPayloads = JsonPayloadGenerator.generatePayloads(resolvedData);
 
             // Output directories
             Path jsonOutputDir = Paths.get("output/json");
@@ -56,18 +58,33 @@ public class OABatchRunner {
                 outputFile = new File(jsonOutputDir.toFile(), "payload_" + (i + 1) + ".json");
                 mapper.writeValue(outputFile, mapper.readTree(json));
             }
-            System.out.println("JSON created: " + outputFile.getAbsolutePath());
+            System.out.println("JSON created: " + jsonOutputDir.toAbsolutePath());
 
             // Generate Postman CSV
             String csvOutputPath = postmanOutputDir.resolve("postman_data.csv").toString();
-            PostmanCSVGenerator.generateCSV(headers, resolvedData, csvOutputPath);
-
-            System.out.println("PostMan CSV  created: " + outputFile.getAbsolutePath());
+            generateCSV(headers, resolvedData, csvOutputPath);
+            System.out.println("Postman CSV created: " + csvOutputPath);
 
             System.out.println("Batch Execution Completed from GUI!");
-        } catch (IOException | JSONException | IllegalArgumentException e) {
+
+        } catch (IOException | IllegalArgumentException e) {
             e.printStackTrace();
             System.out.println("Error occurred during batch execution from GUI.");
         }
+    }
+
+    private static void generateCSV(List<String> headers, List<Map<String, String>> combinations, String outputPath) throws IOException {
+        FileWriter writer = new FileWriter(outputPath);
+        writer.append(String.join(",", headers)).append("\n");
+
+        for (Map<String, String> combination : combinations) {
+            for (String header : headers) {
+                writer.append(combination.getOrDefault(header, "")).append(",");
+            }
+            writer.append("\n");
+        }
+
+        writer.flush();
+        writer.close();
     }
 }
