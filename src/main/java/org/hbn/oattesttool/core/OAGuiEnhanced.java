@@ -50,7 +50,8 @@ public class OAGuiEnhanced {
         GridBagConstraints gbc = new GridBagConstraints();
         factorNameField = new JTextField(15);
         levelsField = new JTextField(15);
-        oaTypeDropdown = new JComboBox<>(new String[]{"L4", "L8", "L16"});
+        oaTypeDropdown = new JComboBox<>(new String[]{"L4", "L8", "L16"
+        });
 
         factorListModel = new DefaultListModel<>();
         JList<String> factorList = new JList<>(factorListModel);
