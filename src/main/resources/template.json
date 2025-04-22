@@ -1,7 +1,5 @@
 {
-  "loginDetails": {
-    "browser": "{{browser}}",
-    "os": "{{os}}",
-    "region": "{{region}}"
-  }
+  "accountType":"{{accountType}}",
+  "balance":"{{balance}}",
+  "status":"{{status}}"
 }
