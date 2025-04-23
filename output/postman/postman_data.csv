@@ -1,5 +1,5 @@
 accountType,balance,status
-savings,500,active,
-savings,100,inactive,
-current,500,inactive,
-current,100,active,
+current,56778,active,
+current,8000,inactive,
+savings,56778,inactive,
+savings,8000,active,

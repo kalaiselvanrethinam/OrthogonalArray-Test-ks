@@ -1,32 +1,11 @@
-Status: 403
+Status: 201
 Response:
-<html>
-  <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=ISO-8859-1"/>
-    <title>Error 403 No valid crumb was included in the request</title>
-  </head>
-  <body>
-    <h2>HTTP ERROR 403 No valid crumb was included in the request</h2>
-    <table>
-      <tr>
-        <th colspan="1" rowspan="1">URI:</th>
-        <td colspan="1" rowspan="1">/api/createAccount</td>
-      </tr>
-      <tr>
-        <th colspan="1" rowspan="1">STATUS:</th>
-        <td colspan="1" rowspan="1">403</td>
-      </tr>
-      <tr>
-        <th colspan="1" rowspan="1">MESSAGE:</th>
-        <td colspan="1" rowspan="1">No valid crumb was included in the request</td>
-      </tr>
-      <tr>
-        <th colspan="1" rowspan="1">SERVLET:</th>
-        <td colspan="1" rowspan="1">Stapler</td>
-      </tr>
-    </table>
-    <hr/>
-    <a shape="rect" href="https://jetty.org/">Powered by Jetty:// 12.0.16</a>
-    <hr/>
-  </body>
-</html>
+[
+    {
+        "id": 27,
+        "accountNumber": "9220099790",
+        "accountType": "current",
+        "balance": 8000.0,
+        "status": "inactive"
+    }
+]
