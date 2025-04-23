@@ -2,10 +2,10 @@ Status: 201
 Response:
 [
     {
-        "id": 6,
-        "accountNumber": "8265881565",
-        "accountType": "Savings",
-        "balance": 500.0,
-        "status": "Active"
+        "id": 27,
+        "accountNumber": "9220099790",
+        "accountType": "current",
+        "balance": 8000.0,
+        "status": "inactive"
     }
 ]

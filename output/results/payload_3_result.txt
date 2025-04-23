@@ -1,5 +1,11 @@
-Status: 400
+Status: 201
 Response:
 [
-    "Account balance is required"
+    {
+        "id": 28,
+        "accountNumber": "5465342413",
+        "accountType": "savings",
+        "balance": 56778.0,
+        "status": "inactive"
+    }
 ]

@@ -1,5 +1,5 @@
 {
-  "accountType" : "Current",
-  "balance" : "500",
-  "status" : ""
+  "accountType" : "savings",
+  "balance" : "8000",
+  "status" : "active"
 }
