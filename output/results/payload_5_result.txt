@@ -1,0 +1,6 @@
+Status: 400
+Response:
+[
+    "Account type is required",
+    "Account balance is required"
+]

@@ -308,9 +308,6 @@ package org.hbn.oattesttool.core;
 //        }
 //
 //package com.flowcheck.view;
-
-//package org.hbn.oattesttool.core;
-
 import org.apache.poi.ss.usermodel.*;
 import javax.swing.*;
 import java.awt.*;
@@ -375,15 +372,29 @@ public class OAGuiEnhanced {
         clearButton.addActionListener(e -> clearAll());
 
         gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.gridx = 0; gbc.gridy = 0; inputPanel.add(new JLabel("Factor Name:"), gbc);
-        gbc.gridx = 1; inputPanel.add(factorNameField, gbc);
-        gbc.gridx = 0; gbc.gridy = 1; inputPanel.add(new JLabel("Levels (comma-separated):"), gbc);
-        gbc.gridx = 1; inputPanel.add(levelsField, gbc);
-        gbc.gridx = 0; gbc.gridy = 2; inputPanel.add(new JLabel("OA Type:"), gbc);
-        gbc.gridx = 1; inputPanel.add(oaTypeDropdown, gbc);
-        gbc.gridx = 0; gbc.gridy = 3; inputPanel.add(addButton, gbc);
-        gbc.gridx = 1; inputPanel.add(uploadButton, gbc);
-        gbc.gridx = 0; gbc.gridy = 4; inputPanel.add(clearButton, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        inputPanel.add(new JLabel("Factor Name:"), gbc);
+        gbc.gridx = 1;
+        inputPanel.add(factorNameField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        inputPanel.add(new JLabel("Levels (comma-separated):"), gbc);
+        gbc.gridx = 1;
+        inputPanel.add(levelsField, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        inputPanel.add(new JLabel("OA Type:"), gbc);
+        gbc.gridx = 1;
+        inputPanel.add(oaTypeDropdown, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        inputPanel.add(addButton, gbc);
+        gbc.gridx = 1;
+        inputPanel.add(uploadButton, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        inputPanel.add(clearButton, gbc);
 
         frame.add(inputPanel, BorderLayout.NORTH);
         frame.add(listScroll, BorderLayout.CENTER);
@@ -396,6 +407,9 @@ public class OAGuiEnhanced {
         JButton openOutputButton = new JButton("Open Output Folder");
         openOutputButton.addActionListener(e -> openOutputFolder());
 
+        JButton runTestButton = new JButton("Run Tests");
+        runTestButton.addActionListener(e -> runMavenTest());
+
         previewArea = new JTextArea();
         previewArea.setEditable(false);
         previewArea.setLineWrap(true);
@@ -406,6 +420,7 @@ public class OAGuiEnhanced {
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(generateButton);
         buttonPanel.add(openOutputButton);
+        buttonPanel.add(runTestButton);
 
         bottomPanel.add(buttonPanel, BorderLayout.NORTH);
         bottomPanel.add(previewScroll, BorderLayout.CENTER);
@@ -547,28 +562,19 @@ public class OAGuiEnhanced {
 
     private void downloadAllureReport(ActionEvent e) {
         try {
-            // Run the same command as you did in CMD
-           // ProcessBuilder builder = new ProcessBuilder(
-//                    "cmd.exe", "/c",
-//                    "allure generate C:\\Ortho\\allure-results -o C:\\Ortho\\allure-report --clean"
-//            );
             ProcessBuilder builder = new ProcessBuilder("cmd.exe", "/c", "allure serve C:\\Ortho\\allure-results");
-
-
-            builder.redirectErrorStream(true); // Merge stdout and stderr
+            builder.redirectErrorStream(true);
             Process process = builder.start();
 
-            // Read and print all output
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println("[Allure] " + line); // Or log to your UI
+                System.out.println("[Allure] " + line);
             }
 
             int exitCode = process.waitFor();
             System.out.println("Allure exited with code: " + exitCode);
 
-            // Check if report folder was generated
             File allureReportDir = new File("C:/Ortho/allure-report");
             if (allureReportDir.exists() && allureReportDir.isDirectory()) {
                 String reportLink = allureReportDir.getAbsolutePath();
@@ -584,8 +590,94 @@ public class OAGuiEnhanced {
         }
     }
 
+//    private void runMavenTest() {
+//        try {
+//            // Replace this with your actual Maven location
+//            String mavenExecutable = "C:/Users/DELL/Downloads/apache-maven-3.9.9/bin/mvn.cmd";
+//
+//            // Updated command with -DskipTests to skip tests and -X for detailed output
+//          //  ProcessBuilder builder = new ProcessBuilder(mavenExecutable, "install", "-DskipTests", "-X");
+//            ProcessBuilder builder = new ProcessBuilder(mavenExecutable, "test");
+//            // Set the working directory to the current user directory
+//            builder.directory(new File(System.getProperty("user.dir")));
+//            builder.redirectErrorStream(true);
+//
+//            // Start the Maven process
+//            Process process = builder.start();
+//
+//            // Capture the output of the process
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+//
+//            StringBuilder output = new StringBuilder();
+//            String line;
+//
+//            // Read the output line by line
+//            while ((line = reader.readLine()) != null) {
+//                output.append(line).append("\n");
+//            }
+//
+//            // Wait for the process to finish and get the exit code
+//            int exitCode = process.waitFor();
+//
+//            // Update the preview area with the exit code and output
+//            previewArea.setText("Maven build finished. Exit code: " + exitCode + "\n\n" + output);
+//
+//        } catch (IOException | InterruptedException ex) {
+//            // Print the stack trace and show error message if there's an issue
+//            ex.printStackTrace();
+//            JOptionPane.showMessageDialog(frame, " Error running Maven test: " + ex.getMessage());
+//        }
+//    }
+private void runMavenTest() {
+    try {
+        // Replace this with your actual Maven location
+        String mavenExecutable = "C:/Users/DELL/Downloads/apache-maven-3.9.9/bin/mvn.cmd";
 
-        private void zipDirectory(File folder, ZipOutputStream zos, String basePath) throws IOException {
+        // Command to run tests
+        ProcessBuilder builder = new ProcessBuilder(mavenExecutable, "test");
+
+        builder.directory(new File(System.getProperty("user.dir")));
+        builder.redirectErrorStream(true);
+
+        // Start the Maven process
+        Process process = builder.start();
+
+        // Capture the output of the process
+        BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+        StringBuilder output = new StringBuilder();
+        String line;
+
+        // Read the output line by line
+        while ((line = reader.readLine()) != null) {
+            // Remove question marks if present and look for the required lines
+            if (line.contains("Testing:") || line.contains("Status Code:") || line.contains("Response:")) {
+                // Remove the question mark at the beginning of the line
+                line = line.replaceAll("^\\?", "").trim();
+
+                // Add a star symbol between test cases
+                if (line.contains("Testing:")) {
+                    output.append("\n★ ");  // Add a star before each test case
+                }
+
+                // Append the line to output
+                output.append(line).append("\n");
+            }
+        }
+
+        // Wait for the process to finish and get the exit code
+        int exitCode = process.waitFor();
+
+        // Update the preview area with the exit code and filtered output
+        previewArea.setText("✅ Maven test finished. Exit code: " + exitCode + "\n\n" + output);
+
+    } catch (IOException | InterruptedException ex) {
+        // Print the stack trace and show error message if there's an issue
+        ex.printStackTrace();
+        JOptionPane.showMessageDialog(frame, "❌ Error running Maven test: " + ex.getMessage());
+    }
+}
+
+    private void zipDirectory(File folder, ZipOutputStream zos, String basePath) throws IOException {
         for (File file : folder.listFiles()) {
             if (file.isDirectory()) {
                 zipDirectory(file, zos, basePath);

@@ -1,0 +1,11 @@
+Status: 201
+Response:
+[
+    {
+        "id": 84,
+        "accountNumber": "3737601067",
+        "accountType": "Savings",
+        "balance": 400.0,
+        "status": "Active"
+    }
+]
